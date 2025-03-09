@@ -1,7 +1,7 @@
-# 📰 ScrapperNews - The Ultimate News Scraper! 🚀
+# 📰 BrokenNews - The Ultimate News Scraper! 🚀
 
 ## 📢 Breaking News, Every Second!  
-Welcome to **ScrapperNews**, where we go the extra mile by **checking if the news is fake or not**! 🔍🕵️‍♂️
+Welcome to **BrokenNews**, where we go the extra mile by **checking if the news is fake or not**! 🔍🕵️‍♂️
 The freshest news gets scraped and served hot! 🍕🔥 
 Say goodbye to manually browsing news sites—our scraper brings it all to you in one place. 🤖💡
 
