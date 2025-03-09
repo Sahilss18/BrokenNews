@@ -59,8 +59,8 @@ Fork it, improve it, and send in your pull requests!
 
 ## 📞 Contact
 📬 **Developer:** [Sahilss18](https://github.com/Sahilss18)  
-🐦 **Twitter:** [@yourhandle](https://twitter.com/)  
-💬 **Discord:** YourServerName  
+🐦 **LinkedIN:** [SAHIL SINGH](www.linkedin.com/in/sahilsingh18)  
+
 
 ---
 
