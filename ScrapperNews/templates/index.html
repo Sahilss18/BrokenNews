@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsFlash - Latest Headlines</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #c00;
+            --secondary: #f8f8f8;
+            --dark: #333;
+            --light: #fff;
+            --border: #ddd;
+            --hover: #e8e8e8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+            background-color: var(--secondary);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .date-weather {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .section-heading {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--dark);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .category-card {
+            background-color: var(--light);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-header {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 12px 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-header i {
+            margin-right: 10px;
+        }
+        
+        .category-content {
+            padding: 15px;
+        }
+        
+        .category-description {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .category-link {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--dark);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .category-link:hover {
+            background-color: var(--primary);
+        }
+        
+        .trending-section {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .trending-list {
+            list-style-type: none;
+        }
+        
+        .trending-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+        
+        .trending-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--light);
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: #ccc;
+            padding: 30px 0;
+            font-size: 0.9rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light);
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        
+        .source-badge {
+            background-color: #555;
+            color: var(--light);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .date-weather {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-newspaper"></i> BrokenNews
+            </a>
+            <div class="date-weather">
+                <span id="current-date">Sunday, March 09, 2025</span> | 
+                <i class="fas fa-cloud-sun"></i> 24°C
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section class="trending-section">
+            <h2 class="section-heading">
+                <i class="fas fa-fire"></i> Trending Now
+            </h2>
+            <ul class="trending-list">
+                <li class="trending-item">
+                    <span class="trending-badge">HOT</span>
+                    Global climate summit reaches historic agreement
+                    <span class="source-badge">TOI</span>
+                </li>
+                <li class="trending-item">
+                    <span class="trending-badge">NEW</span>
+                    Tech giants announce collaboration on AI regulation
+                    <span class="source-badge">BBC</span>
+                </li>
+                <li class="trending-item">
+                    <span class="trending-badge">BREAKING</span>
+                    Major economic stimulus package announced
+                    <span class="source-badge">TOI</span>
+                </li>
+            </ul>
+        </section>
+        
+        <h2 class="section-heading">
+            <i class="fas fa-th-large"></i> News Categories
+        </h2>
+        
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-home"></i> Home
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        Top headlines and breaking news from across the nation and world.
+                    </p>
+                    <a href="/category/home" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-film"></i> Entertainment
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        Latest from the world of movies, music, television and celebrities.
+                    </p>
+                    <a href="/category/entertainment" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-basketball-ball"></i> Sports
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        Updates on cricket, football, tennis and all major sporting events.
+                    </p>
+                    <a href="/category/sports" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-map-marker-alt"></i> India
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        News from across India covering politics, society and economy.
+                    </p>
+                    <a href="/category/india" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-globe"></i> World
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        International news, global politics and worldwide events.
+                    </p>
+                    <a href="/category/world" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-chart-line"></i> Business
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        Economic news, market trends, and business analysis.
+                    </p>
+                    <a href="/category/business" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-microchip"></i> Technology
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        Updates on tech innovations, gadgets, and digital trends.
+                    </p>
+                    <a href="/category/technology" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-heartbeat"></i> Health
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        Latest in healthcare, wellness, medical research and advice.
+                    </p>
+                    <a href="/category/health" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-graduation-cap"></i> Education
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        News about education policy, exams, and academic achievements.
+                    </p>
+                    <a href="/category/education" class="category-link">View News</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    <i class="fas fa-language"></i> English News
+                </div>
+                <div class="category-content">
+                    <p class="category-description">
+                        Curated English language news from premium news sources.
+                    </p>
+                    <a href="/category/english" class="category-link">View News</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Advertise</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 NewsFlash | Powered by Times of India & BBC News
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update the current date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const today = new Date();
+        document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>
